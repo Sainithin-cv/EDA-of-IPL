@@ -57,14 +57,14 @@ CREATE TABLE deliveries (
 );
 ```
 
-Copy data from csv files:
+Import data from csv files:
 
 ```sql
 copy matches from '<filepath>/matches.csv' with (format 'csv', header true);
 copy deliveries from '<filepath>/deliveries.csv' with (format 'csv', header true);
 ```
 
-See if the tables are created:
+Check if the tables are created:
 
 ```
 ipl=# \dt
@@ -92,7 +92,7 @@ ipl=# SELECT COUNT(*) as no_of_rows FROM matches;
             18
 ```
 
-## Viewing data
+## View data
 
 #### View first 5 rows
 
@@ -146,7 +146,7 @@ ipl=# SELECT COUNT(DISTINCT(player_of_the_match)) FROM matches;
    187
 ```
 
-#### Find season winner for each season (season winner is the winner of the last match of each season)
+#### SEASON WINNERS (season winner is the winner of the last match of each season)
 ```
 select distinct on (season) * from matches order by season, date desc;
 
@@ -267,16 +267,6 @@ ipl=# SELECT SUM(extra_runs) FROM deliveries;
 ------
  9519
  ```
-
-#### On an average, teams won by how many runs in ipl
-
-```
-ipl=# SELECT ROUND(AVG(win_by_runs), 2) FROM matches;
-
- round 
--------
- 13.72
- ```
  
 ## Filters
 
@@ -312,6 +302,16 @@ ipl-# WHERE batsman = 'SR Tendulkar' AND bowler = 'SK Warne';
  count 
 -------
     39
+ ```
+ 
+ #### On an average, teams won by how many runs in ipl
+
+```
+ipl=# SELECT ROUND(AVG(win_by_runs), 2) FROM matches;
+
+ round 
+-------
+ 13.72
  ```
  
  #### How many matches were played in the month of April
